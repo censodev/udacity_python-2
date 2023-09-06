@@ -12,13 +12,13 @@ class Ingestor(IngestorInterface):
     def parse(cls, path: str) -> list[QuoteModel]:
         if not cls.can_ingest(path):
             raise Exception("File's extention is not supported.")
-        ext = os.path.splitext(path)
+        _, ext = os.path.splitext(path)
         match ext:
-            case 'csv':
+            case '.csv':
                 return CSVIngestor.parse(path)
-            case 'docx':
+            case '.docx':
                 return DocxIngestor.parse(path)
-            case 'pdf':
+            case '.pdf':
                 return PDFIngestor.parse(path)
-            case 'txt':
+            case '.txt':
                 return TextIngestor.parse(path)
