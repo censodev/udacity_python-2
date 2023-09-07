@@ -16,7 +16,7 @@ class MemeEngine:
     def make_meme(self, img_path, text, author, width=500) -> str:
         with Image.open(img_path) as img:
             height = int(width / img.width * img.height)
-            img.resize((width, height))
+            img = img.resize((width, height))
             draw = ImageDraw.Draw(img)
             text_position = random.choice(range(20, height - 100))
             fill = (0, 0, 0)
