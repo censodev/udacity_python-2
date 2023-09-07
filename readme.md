@@ -1,6 +1,6 @@
 # Meme Generator
 
-A multimedia application to dynamically generate memes
+A multimedia application to dynamically generate memes.
 
 ## Setup
 
@@ -12,15 +12,28 @@ pip install -r requirements.txt
 
 ## Usages
 
-- Web:
+### Web
 
-  ```cmd
-  cd src && py app.py
-  ```
+```cmd
+py src/app.py
+```
 
-  Access the web application at <http://localhost:5000>
-- CLI:
+Access the web application at <http://127.0.0.1:5000>
 
-  ```cmd
-  cd src && py meme.py
-  ```
+### CLI
+
+Generate meme randomly:
+
+```cmd
+py src/meme.py
+```
+
+Generate meme manually:
+
+```cmd
+py src/meme.py -p "<IMAGE_PATH>" -b "<QUOTE_BODY>" -a "<QUOTE_AUTHOR>"
+```
+
+```cmd
+py src/meme.py --path="<IMAGE_PATH>" --body="<QUOTE_BODY>" --author="<QUOTE_AUTHOR>"
+```
