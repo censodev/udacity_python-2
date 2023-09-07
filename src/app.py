@@ -1,5 +1,6 @@
 import random
 import os
+from PIL import UnidentifiedImageError
 import requests
 from flask import Flask, render_template, abort, request
 from modules.MemeEngine import MemeEngine
@@ -53,17 +54,21 @@ def meme_form():
 @app.route('/create', methods=['POST'])
 def meme_post():
     """ Create a user defined meme """
-    image_url = request.form.get('image_url')
-    img = requests.get(image_url)
-    tmp_path = build_abs_local_path('./tmp_img.jpg')
-    with open(tmp_path, 'wb') as fo:
-        fo.write(img.content)
-    body = request.form.get('body')
-    author = request.form.get('author')
-    path = meme.make_meme(tmp_path, body, author)
-    os.remove(tmp_path)
-    return render_template('meme.html', path=path)
-
+    try:
+        image_url = request.form.get('image_url')
+        img = requests.get(image_url)
+        tmp_path = build_abs_local_path('./tmp_img.jpg')
+        with open(tmp_path, 'wb') as fo:
+            fo.write(img.content)
+        body = request.form.get('body')
+        author = request.form.get('author')
+        path = meme.make_meme(tmp_path, body, author)
+        os.remove(tmp_path)
+        return render_template('meme.html', path=path)
+    except Exception as err:
+        print(err)
+        os.remove(tmp_path)
+        return render_template('error.html')
 
 if __name__ == "__main__":
     app.run()
