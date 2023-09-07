@@ -13,12 +13,11 @@ class Ingestor(IngestorInterface):
         if not cls.can_ingest(path):
             raise Exception("File's extention is not supported.")
         _, ext = os.path.splitext(path)
-        match ext:
-            case '.csv':
-                return CSVIngestor.parse(path)
-            case '.docx':
-                return DocxIngestor.parse(path)
-            case '.pdf':
-                return PDFIngestor.parse(path)
-            case '.txt':
-                return TextIngestor.parse(path)
+        if ext == '.csv':
+            return CSVIngestor.parse(path)
+        elif ext == '.docx':
+            return DocxIngestor.parse(path)
+        elif ext == '.pdf':
+            return PDFIngestor.parse(path)
+        elif ext == '.txt':
+            return TextIngestor.parse(path)
