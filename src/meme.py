@@ -1,7 +1,10 @@
+import argparse
 import os
 import random
-
-# @TODO Import your Ingestor and MemeEngine classes
+from modules.MemeEngine import MemeEngine
+from modules.QuoteEngine.ingestor import Ingestor
+from modules.QuoteEngine.quote_model import QuoteModel
+from utils import build_abs_local_path
 
 
 def generate_meme(path=None, body=None, author=None):
@@ -17,7 +20,7 @@ def generate_meme(path=None, body=None, author=None):
 
         img = random.choice(imgs)
     else:
-        img = path[0]
+        img = path
 
     if body is None:
         quote_files = ['./_data/DogQuotes/DogQuotesTXT.txt',
@@ -26,7 +29,7 @@ def generate_meme(path=None, body=None, author=None):
                        './_data/DogQuotes/DogQuotesCSV.csv']
         quotes = []
         for f in quote_files:
-            quotes.extend(Ingestor.parse(f))
+            quotes.extend(Ingestor.parse(build_abs_local_path(f)))
 
         quote = random.choice(quotes)
     else:
@@ -40,9 +43,9 @@ def generate_meme(path=None, body=None, author=None):
 
 
 if __name__ == "__main__":
-    # @TODO Use ArgumentParser to parse the following CLI arguments
-    # path - path to an image file
-    # body - quote body to add to the image
-    # author - quote author to add to the image
-    args = None
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-p', '--path')
+    parser.add_argument('-b', '--body')
+    parser.add_argument('-a', '--author')
+    args = parser.parse_args()
     print(generate_meme(args.path, args.body, args.author))
