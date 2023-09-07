@@ -18,7 +18,7 @@ class MemeEngine:
             height = int(width / img.width * img.height)
             img.resize((width, height))
             draw = ImageDraw.Draw(img)
-            text_position = height - 100
+            text_position = random.choice(range(20, height - 100))
             fill = (0, 0, 0)
             stroke_fill = (255, 255, 255)
             fontBody = ImageFont.truetype(build_abs_local_path(
